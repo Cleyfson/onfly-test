@@ -28,7 +28,7 @@ class DespesaController extends Controller
         $despesa->user_id = $user->id;
         $despesa->save();
 
-        // Notification::send($user, new DespesaCadastrada($despesa));
+        Notification::send($user, new DespesaCadastrada($despesa));
 
         return new DespesaResource($despesa);
     }
