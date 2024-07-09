@@ -36,10 +36,7 @@ class DespesaController extends Controller
     public function show($id)
     {
         $despesa = Despesa::findOrFail($id);
-
-        if ($despesa->user_id != auth()->id()) {
-            return response()->json(['error' => 'Despesa não encontrada ou não autorizada'], 404);
-        }
+        $this->authorize('view', $despesa);
 
         return new DespesaResource($despesa);
     }
@@ -47,10 +44,7 @@ class DespesaController extends Controller
     public function update(UpdateDespesaRequest $request, $id)
     {
         $despesa = Despesa::findOrFail($id);
-
-        if ($despesa->user_id != auth()->id()) {
-            return response()->json(['error' => 'Despesa não encontrada ou não autorizada'], 404);
-        }
+        $this->authorize('update', $despesa);
 
         $despesa->update($request->validated());
 
@@ -60,10 +54,7 @@ class DespesaController extends Controller
     public function destroy($id)
     {
         $despesa = Despesa::findOrFail($id);
-
-        if ($despesa->user_id != auth()->id()) {
-            return response()->json(['error' => 'Despesa não encontrada ou não autorizada'], 404);
-        }
+        $this->authorize('delete', $despesa);
 
         $despesa->delete();
 
