@@ -38,6 +38,7 @@ class DespesaCadastrada extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
+                        ->subject('Uma nova despesa foi cadastrada.')
                         ->line('Uma nova despesa foi cadastrada.')
                         ->action('Ver Despesa', url('/despesas/'.$this->despesa->id))
                         ->line('Descrição: ' . $this->despesa->descricao)
